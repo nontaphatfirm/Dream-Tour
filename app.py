@@ -10,51 +10,51 @@ from src.agents.brain_agent import generate_recommendations
 
 
 ZONE_CHOICES = [
-    ("ทั้งประเทศ", ""),
-    ("ภาคเหนือ", "ภาคเหนือ"),
-    ("ภาคกลาง", "ภาคกลาง"),
-    ("ภาคตะวันออก", "ภาคตะวันออก"),
-    ("ภาคตะวันออกเฉียงเหนือ (อีสาน)", "ภาคตะวันออกเฉียงเหนือ"),
-    ("ภาคตะวันตก", "ภาคตะวันตก"),
-    ("ภาคใต้", "ภาคใต้"),
+    ("All regions", ""),
+    ("Northern region", "ภาคเหนือ"),
+    ("Central region", "ภาคกลาง"),
+    ("Eastern region", "ภาคตะวันออก"),
+    ("Northeastern region (Isaan)", "ภาคตะวันออกเฉียงเหนือ"),
+    ("Western region", "ภาคตะวันตก"),
+    ("Southern region", "ภาคใต้"),
 ]
 
 PROVINCE_CHOICES = [
-    ("ทุกจังหวัด", ""),
-    ("กระบี่", "กระบี่"), ("กรุงเทพมหานคร", "กรุงเทพมหานคร"),
-    ("กาญจนบุรี", "กาญจนบุรี"), ("กาฬสินธุ์", "กาฬสินธุ์"),
-    ("กำแพงเพชร", "กำแพงเพชร"), ("ขอนแก่น", "ขอนแก่น"),
-    ("จันทบุรี", "จันทบุรี"), ("ฉะเชิงเทรา", "ฉะเชิงเทรา"),
-    ("ชลบุรี", "ชลบุรี"), ("ชัยนาท", "ชัยนาท"),
-    ("ชัยภูมิ", "ชัยภูมิ"), ("ชุมพร", "ชุมพร"),
-    ("เชียงราย", "เชียงราย"), ("เชียงใหม่", "เชียงใหม่"),
-    ("ตรัง", "ตรัง"), ("ตราด", "ตราด"), ("ตาก", "ตาก"),
-    ("นครนายก", "นครนายก"), ("นครปฐม", "นครปฐม"),
-    ("นครพนม", "นครพนม"), ("นครราชสีมา", "นครราชสีมา"),
-    ("นครศรีธรรมราช", "นครศรีธรรมราช"), ("นครสวรรค์", "นครสวรรค์"),
-    ("นนทบุรี", "นนทบุรี"), ("นราธิวาส", "นราธิวาส"), ("น่าน", "น่าน"),
-    ("บึงกาฬ", "บึงกาฬ"), ("บุรีรัมย์", "บุรีรัมย์"),
-    ("ปทุมธานี", "ปทุมธานี"), ("ประจวบคีรีขันธ์", "ประจวบคีรีขันธ์"),
-    ("ปราจีนบุรี", "ปราจีนบุรี"), ("ปัตตานี", "ปัตตานี"),
-    ("พระนครศรีอยุธยา", "พระนครศรีอยุธยา"), ("พะเยา", "พะเยา"),
-    ("พังงา", "พังงา"), ("พัทลุง", "พัทลุง"), ("พิจิตร", "พิจิตร"),
-    ("พิษณุโลก", "พิษณุโลก"), ("เพชรบุรี", "เพชรบุรี"),
-    ("เพชรบูรณ์", "เพชรบูรณ์"), ("แพร่", "แพร่"), ("ภูเก็ต", "ภูเก็ต"),
-    ("มหาสารคาม", "มหาสารคาม"), ("มุกดาหาร", "มุกดาหาร"),
-    ("แม่ฮ่องสอน", "แม่ฮ่องสอน"), ("ยโสธร", "ยโสธร"), ("ยะลา", "ยะลา"),
-    ("ร้อยเอ็ด", "ร้อยเอ็ด"), ("ระนอง", "ระนอง"), ("ระยอง", "ระยอง"),
-    ("ราชบุรี", "ราชบุรี"), ("ลพบุรี", "ลพบุรี"), ("ลำปาง", "ลำปาง"),
-    ("ลำพูน", "ลำพูน"), ("เลย", "เลย"), ("ศรีสะเกษ", "ศรีสะเกษ"),
-    ("สกลนคร", "สกลนคร"), ("สงขลา", "สงขลา"), ("สตูล", "สตูล"),
-    ("สมุทรปราการ", "สมุทรปราการ"), ("สมุทรสงคราม", "สมุทรสงคราม"),
-    ("สมุทรสาคร", "สมุทรสาคร"), ("สระแก้ว", "สระแก้ว"),
-    ("สระบุรี", "สระบุรี"), ("สิงห์บุรี", "สิงห์บุรี"),
-    ("สุโขทัย", "สุโขทัย"), ("สุพรรณบุรี", "สุพรรณบุรี"),
-    ("สุราษฎร์ธานี", "สุราษฎร์ธานี"), ("สุรินทร์", "สุรินทร์"),
-    ("หนองคาย", "หนองคาย"), ("หนองบัวลำภู", "หนองบัวลำภู"),
-    ("อ่างทอง", "อ่างทอง"), ("อำนาจเจริญ", "อำนาจเจริญ"),
-    ("อุดรธานี", "อุดรธานี"), ("อุตรดิตถ์", "อุตรดิตถ์"),
-    ("อุทัยธานี", "อุทัยธานี"), ("อุบลราชธานี", "อุบลราชธานี"),
+    ("All provinces", ""),
+    ("Krabi", "กระบี่"), ("Bangkok", "กรุงเทพมหานคร"),
+    ("Kanchanaburi", "กาญจนบุรี"), ("Kalasin", "กาฬสินธุ์"),
+    ("Kamphaeng Phet", "กำแพงเพชร"), ("Khon Kaen", "ขอนแก่น"),
+    ("Chanthaburi", "จันทบุรี"), ("Chachoengsao", "ฉะเชิงเทรา"),
+    ("Chonburi", "ชลบุรี"), ("Chai Nat", "ชัยนาท"),
+    ("Chaiyaphum", "ชัยภูมิ"), ("Chumphon", "ชุมพร"),
+    ("Chiang Rai", "เชียงราย"), ("Chiang Mai", "เชียงใหม่"),
+    ("Trang", "ตรัง"), ("Trat", "ตราด"), ("Tak", "ตาก"),
+    ("Nakhon Nayok", "นครนายก"), ("Nakhon Pathom", "นครปฐม"),
+    ("Nakhon Phanom", "นครพนม"), ("Nakhon Ratchasima", "นครราชสีมา"),
+    ("Nakhon Si Thammarat", "นครศรีธรรมราช"), ("Nakhon Sawan", "นครสวรรค์"),
+    ("Nonthaburi", "นนทบุรี"), ("Narathiwat", "นราธิวาส"), ("Nan", "น่าน"),
+    ("Bueng Kan", "บึงกาฬ"), ("Buriram", "บุรีรัมย์"),
+    ("Pathum Thani", "ปทุมธานี"), ("Prachuap Khiri Khan", "ประจวบคีรีขันธ์"),
+    ("Prachinburi", "ปราจีนบุรี"), ("Pattani", "ปัตตานี"),
+    ("Phra Nakhon Si Ayutthaya", "พระนครศรีอยุธยา"), ("Phayao", "พะเยา"),
+    ("Phang Nga", "พังงา"), ("Phatthalung", "พัทลุง"), ("Phichit", "พิจิตร"),
+    ("Phitsanulok", "พิษณุโลก"), ("Phetchaburi", "เพชรบุรี"),
+    ("Phetchabun", "เพชรบูรณ์"), ("Phrae", "แพร่"), ("Phuket", "ภูเก็ต"),
+    ("Maha Sarakham", "มหาสารคาม"), ("Mukdahan", "มุกดาหาร"),
+    ("Mae Hong Son", "แม่ฮ่องสอน"), ("Yasothon", "ยโสธร"), ("Yala", "ยะลา"),
+    ("Roi Et", "ร้อยเอ็ด"), ("Ranong", "ระนอง"), ("Rayong", "ระยอง"),
+    ("Ratchaburi", "ราชบุรี"), ("Lopburi", "ลพบุรี"), ("Lampang", "ลำปาง"),
+    ("Lamphun", "ลำพูน"), ("Loei", "เลย"), ("Sisaket", "ศรีสะเกษ"),
+    ("Sakon Nakhon", "สกลนคร"), ("Songkhla", "สงขลา"), ("Satun", "สตูล"),
+    ("Samut Prakan", "สมุทรปราการ"), ("Samut Songkhram", "สมุทรสงคราม"),
+    ("Samut Sakhon", "สมุทรสาคร"), ("Sa Kaeo", "สระแก้ว"),
+    ("Saraburi", "สระบุรี"), ("Sing Buri", "สิงห์บุรี"),
+    ("Sukhothai", "สุโขทัย"), ("Suphan Buri", "สุพรรณบุรี"),
+    ("Surat Thani", "สุราษฎร์ธานี"), ("Surin", "สุรินทร์"),
+    ("Nong Khai", "หนองคาย"), ("Nong Bua Lamphu", "หนองบัวลำภู"),
+    ("Ang Thong", "อ่างทอง"), ("Amnat Charoen", "อำนาจเจริญ"),
+    ("Udon Thani", "อุดรธานี"), ("Uttaradit", "อุตรดิตถ์"),
+    ("Uthai Thani", "อุทัยธานี"), ("Ubon Ratchathani", "อุบลราชธานี"),
 ]
 
 
@@ -64,6 +64,7 @@ def build_card_html(place: dict, img_url: str) -> str:
     desc = html.escape(place.get("description", ""))
     locals_say = html.escape(place.get("what_locals_say", ""))
     transit = html.escape(place.get("local_transit", ""))
+    food = html.escape(place.get("recommended_food", ""))
     maps_query = (place.get("place_name", "") + " ประเทศไทย").replace(" ", "+")
     maps_url = f"https://www.google.com/maps/search/?api=1&query={maps_query}"
 
@@ -93,7 +94,7 @@ def build_card_html(place: dict, img_url: str) -> str:
       padding: 3px 10px; border-radius: 20px;
       text-decoration: none;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    ">📍 ดูบน Maps</a>
+    ">📍 View on Maps</a>
   </div>
   <div style="padding: 16px 18px;">
     <h2 style="margin:0 0 6px; font-size:1.1rem; color:#1a1a2e;">{name}</h2>
@@ -102,15 +103,22 @@ def build_card_html(place: dict, img_url: str) -> str:
       background:#FFF3E0; border-left: 4px solid #FF9800;
       border-radius: 4px; padding: 8px 12px; margin-bottom: 8px;
     ">
-      <span style="font-size:0.75rem; font-weight:700; color:#E65100;">คนท้องถิ่นบอกว่า</span>
+      <span style="font-size:0.75rem; font-weight:700; color:#E65100;">Locals say</span>
       <p style="margin:3px 0 0; font-size:0.87rem; color:#5D4037;">{locals_say}</p>
     </div>
     <div style="
       background:#E8F5E9; border-left: 4px solid #4CAF50;
       border-radius: 4px; padding: 8px 12px;
     ">
-      <span style="font-size:0.75rem; font-weight:700; color:#2E7D32;">การเดินทาง</span>
+      <span style="font-size:0.75rem; font-weight:700; color:#2E7D32;">Transportation</span>
       <p style="margin:3px 0 0; font-size:0.87rem; color:#1B5E20;">{transit}</p>
+    </div>
+    <div style="
+      background:#F3E5F5; border-left: 4px solid #9C27B0;
+      border-radius: 4px; padding: 8px 12px;
+    ">
+      <span style="font-size:0.75rem; font-weight:700; color:#7B1FA2;">Recommended Food</span>
+      <p style="margin:3px 0 0; font-size:0.87rem; color:#4A148C;">{food}</p>
     </div>
   </div>
 </div>"""
@@ -132,7 +140,7 @@ def build_map_html(places: list) -> str:
     font-family:'Sarabun',sans-serif;
     font-size:0.95rem; font-weight:600;
     color:#1a1a2e; margin-bottom:10px;
-  ">📍 แผนที่สถานที่อันดับ 1</div>
+  ">📍 Map of the top place</div>
   <iframe
     src="https://maps.google.com/maps?q={query}&output=embed&hl=th"
     width="100%" height="320"
@@ -144,7 +152,7 @@ def build_map_html(places: list) -> str:
     font-family:'Sarabun',sans-serif;
     font-size:0.78rem; color:#999;
     margin-top:6px; text-align:center;
-  ">กดปุ่ม 📍 ดูบน Maps ในแต่ละการ์ดเพื่อดูตำแหน่งสถานที่นั้น ๆ</p>
+  ">Click the 📍 View on Maps button in each card to see the location of that place.</p>
 </div>"""
 
 
@@ -159,31 +167,31 @@ def loading_html(message: str) -> str:
 
 def process_pipeline(image, zone, province):
     if image is None:
-        yield "กรุณาอัปโหลดรูปภาพก่อนนะคะ", "", ""
+        yield "Please upload an image first.", "", ""
         return
 
-    yield "กำลังวิเคราะห์ภาพ...", loading_html("รอสักครู่..."), ""
+    yield "Analyzing image...", loading_html("Please wait..."), ""
     vibe = extract_vibe(image)
     if not vibe:
-        yield "ไม่สามารถวิเคราะห์รูปภาพได้ กรุณาลองใหม่", "", ""
+        yield "Unable to analyze the image. Please try again.", "", ""
         return
 
-    yield vibe, loading_html("กำลังค้นหาข้อมูลสถานที่จากเว็บ..."), ""
+    yield vibe, loading_html("Searching for place information from the web..."), ""
     context = get_local_reviews(vibe, region=zone, province=province)
     target_location, _ = get_location_filter(region=zone, province=province)
 
-    yield vibe, loading_html("AI กำลังคัดเลือกสถานที่ที่เหมาะกับ Vibe ของคุณ..."), ""
+    yield vibe, loading_html("AI is selecting places that match your Vibe..."), ""
     places = generate_recommendations(context, vibe, target_location=target_location)
 
     if not places:
         yield (
             vibe,
-            '<p style="color:#e53935; padding:20px; font-family:Sarabun,sans-serif;">ไม่สามารถสร้างคำแนะนำได้ กรุณาลองใหม่อีกครั้ง</p>',
+            '<p style="color:#e53935; padding:20px; font-family:Sarabun,sans-serif;">Unable to generate recommendations. Please try again.</p>',
             "",
         )
         return
 
-    yield vibe, loading_html("กำลังดึงรูปภาพสถานที่..."), ""
+    yield vibe, loading_html("Fetching place images..."), ""
     for place in places:
         place["img_url"] = get_place_image(
             place.get("search_keyword", place.get("place_name", ""))
@@ -200,8 +208,8 @@ body { font-family: 'Sarabun', sans-serif; }
 
 with gr.Blocks(theme=gr.themes.Soft(), title="Dream Tour", css=CSS) as demo:
     gr.Markdown("""
-# 🌏 Dream Tour — ค้นหาสถานที่ในฝัน
-อัปโหลดรูปภาพที่สื่อถึง **บรรยากาศ (Vibe)** ที่คุณอยากไป แล้วให้ AI แนะนำสถานที่ท่องเที่ยว Unseen ในประเทศไทยที่เหมาะกับคุณ
+# 🌏 Dream Tour — Find Your Dream Destination
+Upload an image that represents the **Vibe** you want to experience, and let AI recommend unseen tourist spots in Thailand that suit you.
 """)
 
     with gr.Row(equal_height=False):
@@ -209,32 +217,32 @@ with gr.Blocks(theme=gr.themes.Soft(), title="Dream Tour", css=CSS) as demo:
         with gr.Column(scale=1, min_width=300, elem_id="left-col"):
             image_input = gr.Image(
                 type="filepath",
-                label="อัปโหลดรูปภาพ Vibe ที่คุณชอบ",
+                label="Upload an image of the Vibe you like",
                 height=260,
             )
             zone_input = gr.Dropdown(
                 choices=ZONE_CHOICES,
                 value="",
-                label="ภาค (Zone)",
-                info="กรองตามภูมิภาคของประเทศไทย",
+                label="Region (Zone)",
+                info="Filter by region of Thailand",
             )
             province_input = gr.Dropdown(
                 choices=PROVINCE_CHOICES,
                 value="",
-                label="จังหวัด (Province)",
-                info="กรองตามจังหวัดที่ต้องการ",
+                label="Province",
+                info="Filter by desired province",
             )
             vibe_output = gr.Textbox(
-                label="Vibe Keywords ที่สกัดได้",
+                label="Extracted Vibe Keywords",
                 interactive=False,
-                placeholder="คีย์เวิร์ดจะปรากฏที่นี่หลังวิเคราะห์รูปภาพ...",
+                placeholder="Keywords will appear here after analyzing the image...",
                 lines=3,
             )
-            submit_btn = gr.Button("ค้นหาสถานที่ในฝัน ✨", variant="primary", size="lg")
+            submit_btn = gr.Button("Find Your Dream Places ✨", variant="primary", size="lg")
 
         # ---- Right panel ----
         with gr.Column(scale=2):
-            gr.Markdown("### Top 5 สถานที่แนะนำ")
+            gr.Markdown("### Top 5 Recommended Places")
             cards_output = gr.HTML()
             map_output = gr.HTML()
 
