@@ -108,14 +108,14 @@ def build_card_html(place: dict, img_url: str) -> str:
     </div>
     <div style="
       background:#E8F5E9; border-left: 4px solid #4CAF50;
-      border-radius: 4px; padding: 8px 12px;
+      border-radius: 4px; padding: 8px 12px; margin-bottom: 8px;
     ">
       <span style="font-size:0.75rem; font-weight:700; color:#2E7D32;">Transportation</span>
       <p style="margin:3px 0 0; font-size:0.87rem; color:#1B5E20;">{transit}</p>
     </div>
     <div style="
       background:#F3E5F5; border-left: 4px solid #9C27B0;
-      border-radius: 4px; padding: 8px 12px;
+      border-radius: 4px; padding: 8px 12px; margin-bottom: 8px;
     ">
       <span style="font-size:0.75rem; font-weight:700; color:#7B1FA2;">Recommended Food</span>
       <p style="margin:3px 0 0; font-size:0.87rem; color:#4A148C;">{food}</p>
@@ -139,7 +139,7 @@ def build_map_html(places: list) -> str:
   <div style="
     font-family:'Sarabun',sans-serif;
     font-size:0.95rem; font-weight:600;
-    color:#1a1a2e; margin-bottom:10px;
+    color:white; margin-bottom:10px;
   ">📍 Map of the top place</div>
   <iframe
     src="https://maps.google.com/maps?q={query}&output=embed&hl=th"
@@ -241,7 +241,7 @@ Upload an image that represents the **Vibe** you want to experience, and let AI 
             submit_btn = gr.Button("Find Your Dream Places ✨", variant="primary", size="lg")
 
         # ---- Right panel ----
-        with gr.Column(scale=2):
+        with gr.Column(scale=2, elem_id="right-col"):
             gr.Markdown("### Top 5 Recommended Places")
             cards_output = gr.HTML()
             map_output = gr.HTML()
