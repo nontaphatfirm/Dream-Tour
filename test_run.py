@@ -43,7 +43,7 @@ def run_tests():
     # ---------------------------------------------------------
     print("--- [Test 3] Brain Agent (JSON Generator) ---")
     try:
-        places_data = generate_recommendations(context)
+        places_data = generate_recommendations(context, vibe_keywords)
         if not places_data:
             print("⚠️ Brain Agent ไม่ได้คืนข้อมูลสถานที่ จึงข้ามการทดสอบหารูปภาพ")
             return

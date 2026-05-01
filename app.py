@@ -1,7 +1,11 @@
 import html
 import gradio as gr
 from src.agents.vision_agent import extract_vibe
-from src.agents.search_agent import get_local_reviews, get_place_image
+from src.agents.search_agent import (
+    get_local_reviews,
+    get_location_filter,
+    get_place_image,
+)
 from src.agents.brain_agent import generate_recommendations
 
 
@@ -166,9 +170,10 @@ def process_pipeline(image, zone, province):
 
     yield vibe, loading_html("กำลังค้นหาข้อมูลสถานที่จากเว็บ..."), ""
     context = get_local_reviews(vibe, region=zone, province=province)
+    target_location, _ = get_location_filter(region=zone, province=province)
 
     yield vibe, loading_html("AI กำลังคัดเลือกสถานที่ที่เหมาะกับ Vibe ของคุณ..."), ""
-    places = generate_recommendations(context, vibe)
+    places = generate_recommendations(context, vibe, target_location=target_location)
 
     if not places:
         yield (

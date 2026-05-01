@@ -107,6 +107,10 @@ def _normalize_location_filter(region="", province=""):
     return f"{province} {expected_region}", None
 
 
+def get_location_filter(region="", province=""):
+    return _normalize_location_filter(region=region, province=province)
+
+
 def _split_image_keywords(vibe_keywords):
     keywords = [
         keyword.strip()
@@ -163,11 +167,18 @@ def _build_review_queries(keyword_groups, location_keyword):
     return cleaned_queries
 
 
-def _format_context(keyword_groups, queries, results, location_warning=None):
+def _format_context(
+    keyword_groups,
+    queries,
+    results,
+    target_location,
+    location_warning=None,
+):
     if not results:
         return "ไม่พบข้อมูลที่ตรงกับ Vibe นี้"
 
     header = [
+        "TARGET_LOCATION: " + (target_location or "ประเทศไทย"),
         "IMAGE_KEYWORDS: " + ", ".join(keyword_groups["all"]),
         "VIBE_KEYWORDS: " + ", ".join(keyword_groups["vibes"]),
         "VISIBLE_OBJECT_OR_PLACE_KEYWORDS: "
@@ -238,6 +249,7 @@ def get_local_reviews(vibe_keywords, region="", province=""):
             keyword_groups,
             queries,
             all_results[:8],
+            target_location=location_keyword,
             location_warning=location_warning,
         )
 
