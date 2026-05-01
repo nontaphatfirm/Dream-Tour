@@ -4,6 +4,109 @@ from src.config import TAVILY_API_KEY
 tavily_client = TavilyClient(api_key=TAVILY_API_KEY)
 
 
+PROVINCE_TO_REGION = {
+    "เชียงราย": "ภาคเหนือ",
+    "เชียงใหม่": "ภาคเหนือ",
+    "น่าน": "ภาคเหนือ",
+    "พะเยา": "ภาคเหนือ",
+    "แพร่": "ภาคเหนือ",
+    "แม่ฮ่องสอน": "ภาคเหนือ",
+    "ลำปาง": "ภาคเหนือ",
+    "ลำพูน": "ภาคเหนือ",
+    "อุตรดิตถ์": "ภาคเหนือ",
+    "กำแพงเพชร": "ภาคกลาง",
+    "ชัยนาท": "ภาคกลาง",
+    "นครนายก": "ภาคกลาง",
+    "นครปฐม": "ภาคกลาง",
+    "นครสวรรค์": "ภาคกลาง",
+    "นนทบุรี": "ภาคกลาง",
+    "ปทุมธานี": "ภาคกลาง",
+    "พระนครศรีอยุธยา": "ภาคกลาง",
+    "พิจิตร": "ภาคกลาง",
+    "พิษณุโลก": "ภาคกลาง",
+    "เพชรบูรณ์": "ภาคกลาง",
+    "ลพบุรี": "ภาคกลาง",
+    "สมุทรปราการ": "ภาคกลาง",
+    "สมุทรสงคราม": "ภาคกลาง",
+    "สมุทรสาคร": "ภาคกลาง",
+    "สระบุรี": "ภาคกลาง",
+    "สิงห์บุรี": "ภาคกลาง",
+    "สุโขทัย": "ภาคกลาง",
+    "สุพรรณบุรี": "ภาคกลาง",
+    "อ่างทอง": "ภาคกลาง",
+    "อุทัยธานี": "ภาคกลาง",
+    "กรุงเทพมหานคร": "ภาคกลาง",
+    "จันทบุรี": "ภาคตะวันออก",
+    "ฉะเชิงเทรา": "ภาคตะวันออก",
+    "ชลบุรี": "ภาคตะวันออก",
+    "ตราด": "ภาคตะวันออก",
+    "ปราจีนบุรี": "ภาคตะวันออก",
+    "ระยอง": "ภาคตะวันออก",
+    "สระแก้ว": "ภาคตะวันออก",
+    "กาฬสินธุ์": "ภาคตะวันออกเฉียงเหนือ",
+    "ขอนแก่น": "ภาคตะวันออกเฉียงเหนือ",
+    "ชัยภูมิ": "ภาคตะวันออกเฉียงเหนือ",
+    "นครพนม": "ภาคตะวันออกเฉียงเหนือ",
+    "นครราชสีมา": "ภาคตะวันออกเฉียงเหนือ",
+    "บึงกาฬ": "ภาคตะวันออกเฉียงเหนือ",
+    "บุรีรัมย์": "ภาคตะวันออกเฉียงเหนือ",
+    "มหาสารคาม": "ภาคตะวันออกเฉียงเหนือ",
+    "มุกดาหาร": "ภาคตะวันออกเฉียงเหนือ",
+    "ยโสธร": "ภาคตะวันออกเฉียงเหนือ",
+    "ร้อยเอ็ด": "ภาคตะวันออกเฉียงเหนือ",
+    "เลย": "ภาคตะวันออกเฉียงเหนือ",
+    "ศรีสะเกษ": "ภาคตะวันออกเฉียงเหนือ",
+    "สกลนคร": "ภาคตะวันออกเฉียงเหนือ",
+    "สุรินทร์": "ภาคตะวันออกเฉียงเหนือ",
+    "หนองคาย": "ภาคตะวันออกเฉียงเหนือ",
+    "หนองบัวลำภู": "ภาคตะวันออกเฉียงเหนือ",
+    "อำนาจเจริญ": "ภาคตะวันออกเฉียงเหนือ",
+    "อุดรธานี": "ภาคตะวันออกเฉียงเหนือ",
+    "อุบลราชธานี": "ภาคตะวันออกเฉียงเหนือ",
+    "กาญจนบุรี": "ภาคตะวันตก",
+    "ตาก": "ภาคตะวันตก",
+    "ประจวบคีรีขันธ์": "ภาคตะวันตก",
+    "เพชรบุรี": "ภาคตะวันตก",
+    "ราชบุรี": "ภาคตะวันตก",
+    "กระบี่": "ภาคใต้",
+    "ชุมพร": "ภาคใต้",
+    "ตรัง": "ภาคใต้",
+    "นครศรีธรรมราช": "ภาคใต้",
+    "นราธิวาส": "ภาคใต้",
+    "ปัตตานี": "ภาคใต้",
+    "พังงา": "ภาคใต้",
+    "พัทลุง": "ภาคใต้",
+    "ภูเก็ต": "ภาคใต้",
+    "ยะลา": "ภาคใต้",
+    "ระนอง": "ภาคใต้",
+    "สงขลา": "ภาคใต้",
+    "สตูล": "ภาคใต้",
+    "สุราษฎร์ธานี": "ภาคใต้",
+}
+
+
+def _normalize_location_filter(region="", province=""):
+    province = str(province or "").strip()
+    region = str(region or "").strip()
+
+    if not province:
+        return region, None
+
+    expected_region = PROVINCE_TO_REGION.get(province)
+    if not expected_region:
+        return province, None
+
+    if region and region != expected_region:
+        warning = (
+            f"เลือกจังหวัด '{province}' ซึ่งอยู่ใน '{expected_region}' "
+            f"แต่เลือกภาคเป็น '{region}' ระบบจึงใช้ '{expected_region}' แทน"
+        )
+        print(f"⚠️ Search Agent Location Warning: {warning}")
+        return f"{province} {expected_region}", warning
+
+    return f"{province} {expected_region}", None
+
+
 def _split_image_keywords(vibe_keywords):
     keywords = [
         keyword.strip()
@@ -60,7 +163,7 @@ def _build_review_queries(keyword_groups, location_keyword):
     return cleaned_queries
 
 
-def _format_context(keyword_groups, queries, results):
+def _format_context(keyword_groups, queries, results, location_warning=None):
     if not results:
         return "ไม่พบข้อมูลที่ตรงกับ Vibe นี้"
 
@@ -69,6 +172,7 @@ def _format_context(keyword_groups, queries, results):
         "VIBE_KEYWORDS: " + ", ".join(keyword_groups["vibes"]),
         "VISIBLE_OBJECT_OR_PLACE_KEYWORDS: "
         + ", ".join(keyword_groups["visible_objects"]),
+        "LOCATION_WARNING: " + location_warning if location_warning else "",
         "SEARCH_QUERIES:",
         *[f"- {query}" for query in queries],
         "",
@@ -104,7 +208,10 @@ def get_local_reviews(vibe_keywords, region="", province=""):
     รับคีย์เวิร์ด + ภาค/จังหวัด -> ค้นหา Pantip/เว็บไทย ด้วย Tavily -> คืนค่า Text (Context)
     """
     try:
-        location_keyword = f"{province} {region}".strip()
+        location_keyword, location_warning = _normalize_location_filter(
+            region=region,
+            province=province,
+        )
         keyword_groups = _split_image_keywords(vibe_keywords)
         queries = _build_review_queries(keyword_groups, location_keyword)
 
@@ -127,7 +234,12 @@ def get_local_reviews(vibe_keywords, region="", province=""):
                 seen_urls.add(dedupe_key)
                 all_results.append(item)
 
-        return _format_context(keyword_groups, queries, all_results[:8])
+        return _format_context(
+            keyword_groups,
+            queries,
+            all_results[:8],
+            location_warning=location_warning,
+        )
 
     except Exception as e:
         print(f"❌ Search Agent (Reviews) Error: {e}")
