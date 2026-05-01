@@ -1,0 +1,19 @@
+name: Sync product branch to Hugging Face
+
+on:
+  push:
+    branches: [product] # branch for deployment
+  workflow_dispatch:
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+      - name: Push to hub
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: git push --force https://Sarankorn:$HF_TOKEN@huggingface.co/spaces/Sarankorn/Dream_Tour HEAD:main
