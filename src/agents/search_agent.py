@@ -3,13 +3,18 @@ from src.config import TAVILY_API_KEY
 
 tavily_client = TavilyClient(api_key=TAVILY_API_KEY)
 
-def get_local_reviews(vibe_keywords):
+def get_local_reviews(vibe_keywords, region="", province=""):
     """
-    รับคีย์เวิร์ด -> ค้นหา Pantip/เว็บไทย ด้วย Tavily -> คืนค่า Text (Context)
+    รับคีย์เวิร์ด + ภาค/จังหวัด -> ค้นหา Pantip/เว็บไทย ด้วย Tavily -> คืนค่า Text (Context)
     """
     try:
-        query = f"สถานที่ท่องเที่ยว Unseen ประเทศไทย รีวิว {vibe_keywords}"
+        location_keyword = f"{province} {region}".strip()
         
+        if location_keyword:
+            query = f"สถานที่ท่องเที่ยว Unseen {location_keyword} รีวิว {vibe_keywords}"
+        else:
+            query = f"สถานที่ท่องเที่ยว Unseen ประเทศไทย รีวิว {vibe_keywords}"
+            
         response = tavily_client.search(
             query=query,
             search_depth="advanced",
