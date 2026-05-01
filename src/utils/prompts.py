@@ -1,25 +1,50 @@
 VISION_PROMPT = """
-วิเคราะห์ภาพนี้และสกัด "บรรยากาศ (Vibe)" ออกมาเป็นคีย์เวิร์ดภาษาไทยสั้นๆ 5 คำ
-เช่น: ภูเขา, ทะเลหมอก, เงียบสงบ, ธรรมชาติ, อากาศหนาว
-ตอบกลับมาแค่คีย์เวิร์ด คั่นด้วยเครื่องหมายจุลภาค (,) เท่านั้น
+วิเคราะห์ภาพที่ผู้ใช้ส่งมาอย่างละเอียด แล้วสกัดคีย์เวิร์ดภาษาไทยสั้นๆ ทั้งหมด 8 คำเท่านั้น
+คีย์เวิร์ดต้องเป็นสิ่งที่เห็นหรือรับรู้ได้จากภาพจริง และต้องช่วยให้ระบบแนะนำสถานที่ที่มีบรรยากาศ ธีม สิ่งของ และสถานที่ใกล้เคียงกับภาพมากที่สุด ห้ามใส่คำที่เดาเกินจากภาพ
+คีย์เวิร์ด 5 คำแรกต้องเป็น "บรรยากาศ (Vibe)" โดยครอบคลุมตามลำดับความสำคัญ: 1. ภูมิประเทศ/ฉากหลัก, 2. องค์ประกอบเด่น, 3. อารมณ์ภาพ, 4. กิจกรรมหรือสไตล์การเที่ยว, 5. สภาพอากาศ/ช่วงเวลา/โทนแสง
+คีย์เวิร์ด 3 คำสุดท้ายต้องเป็นสิ่งของหรือสถานที่ที่เห็นชัดในภาพ เช่น วัด, คาเฟ่, สะพาน, เต็นท์, เรือ, น้ำตก, ชายหาด, ตลาด, อาคารไม้ เพื่อช่วยล็อกธีมไม่ให้ระบบแนะนำสถานที่หลุดจากภาพ
+เลือกคำที่เฉพาะเจาะจง เช่น: ภูเขา, ทะเลหมอก, เงียบสงบ, กางเต็นท์, อากาศหนาว, เต็นท์, ป่าสน, จุดชมวิว
+ถ้าภาพไม่มีองค์ประกอบนั้นชัดเจน ให้เลือกคำที่ตรงกับภาพมากกว่า ห้ามใช้คำกว้างๆ ที่ทำให้สถานที่แนะนำคลาดเคลื่อน
+ตอบกลับมาแค่คีย์เวิร์ด 8 คำ คั่นด้วยเครื่องหมายจุลภาค (,) เท่านั้น ห้ามอธิบายเพิ่ม ห้ามมีตัวเลขนำหน้า และห้ามมีเครื่องหมายอื่นๆ
 """
 
 BRAIN_PROMPT = """
-คุณคือผู้เชี่ยวชาญด้านการท่องเที่ยวไทย (Local Guide)
-จากข้อมูล Context ด้านล่างนี้:
+You are an expert Thailand local travel guide for international visitors.
+Use the context below:
 {context}
 
-จงคัดเลือกสถานที่ท่องเที่ยว Unseen ประเทศไทยที่ตรงกับ Vibe มากที่สุดมา 5 อันดับ 
-และสร้าง Output เป็น JSON Array เท่านั้น ตามโครงสร้างนี้:
+The user's selected location filter is: {target_location}
+This location filter is a hard requirement:
+- If it is a province, every recommended place must be in that province.
+- If it is a Thai region, every recommended place must be in that region.
+- If it is "ประเทศไทย", there is no province or region restriction.
+Never recommend a destination outside the selected province or region, even if it matches the image vibe better.
+If the context contains places outside the selected province or region, ignore those places.
+If you cannot find enough destinations that satisfy both the image keywords and the selected location, return fewer than 5 items or an empty JSON array.
+
+The user's image signal comes from exactly 8 Thai keywords extracted from the uploaded image: the first 5 are vibe keywords and the last 3 are visible object/place keywords.
+THESE 8 KEYWORDS ARE EXACTLY: {vibe}
+
+Treat all 8 keywords as strict matching requirements, not loose inspiration.
+Select up to 5 lesser-known travel destinations in Thailand whose real scenery, atmosphere, travel style, weather/light, dominant visual elements, visible objects, and place type match the uploaded image as closely as possible.
+Do not recommend a place if its landscape or mood is different from the image, even if it is popular or generally beautiful.
+If the context contains weak or mismatched options, prefer fewer-but-closer matches from the context over generic destinations.
+If the context only provides places that do NOT match the vibe, you may use your own knowledge only within the selected location filter.
+Write all user-facing content in natural, helpful English for foreign travelers.
+Prioritize practical local details, realistic transport advice, and culturally useful tips.
+
+Return only a JSON array using this exact structure:
 [
   {{
     "rank": 1,
-    "place_name": "ชื่อสถานที่, จังหวัด",
-    "description": "คำอธิบายบรรยากาศสั้นๆ ที่ตรงกับ Vibe",
-    "what_locals_say": "สรุปคำเตือนหรือรีวิวจากคนพื้นที่ (เช่น ทางชันมาก, ห้ามไปหน้าฝน)",
-    "local_transit": "วิธีเดินทางด้วยรถสาธารณะท้องถิ่น",
-    "search_keyword": "คีย์เวิร์ดสำหรับใช้หารูปภาพ (เช่น 'Pang Oung landscape')"
+    "place_name": "Place name, Province",
+    "description": "A short English description of why this place visually and emotionally matches the user's 8 image keywords. Write in 100% natural English. DO NOT include the original Thai keywords in parentheses.",
+    "what_locals_say": "A concise English summary of local tips, warnings, or common traveler feedback",
+    "local_transit": "How foreign travelers can get there using local or public transportation",
+    "recommended_food": "1-2 highly recommended local Thai dishes to try at or near this destination (in English)",
+    "google_maps_url": "A valid Google Maps search URL. Format: 'https://www.google.com/maps/search/?api=1&query=Place+Name+Province' (Replace spaces with '+')",
+    "search_keyword": "English image search keyword, for example 'Pang Oung landscape'"
   }}
 ]
-ห้ามมีข้อความอื่นนอกจาก JSON
+Do not include any text outside the JSON array.
 """
