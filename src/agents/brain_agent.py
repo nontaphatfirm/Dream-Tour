@@ -1,10 +1,9 @@
 import json
-import google.generativeai as genai
+from google import genai
 from src.config import GEMINI_API_KEY
 from src.utils.prompts import BRAIN_PROMPT
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-pro')
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 def generate_recommendations(context):
     """
@@ -12,17 +11,33 @@ def generate_recommendations(context):
     """
     prompt = BRAIN_PROMPT.format(context=context)
     
-    # TODO: เรียกใช้ model.generate_content(prompt)
-    # TODO: จัดการคลีนข้อความ (ลบ ```json ออก) และแปลงเป็น Python List ด้วย json.loads()
-    
-    # Mock return
-    return [
-        {
-            "rank": 1,
-            "place_name": "ม่อนแจ่ม, เชียงใหม่",
-            "description": "วิวภูเขาสวยงาม",
-            "what_locals_say": "ทางขึ้นชัน ระวังรถติด",
-            "local_transit": "เหมารถแดงจากตัวเมือง",
-            "search_keyword": "Mon Jam Chiang Mai"
-        }
-    ]
+    try:
+        response = client.models.generate_content(
+            model="gemini-3-flash-preview", 
+            contents=prompt
+        )
+        
+        raw_text = response.text.strip()
+        
+        if raw_text.startswith("```json"):
+            raw_text = raw_text[7:]
+        elif raw_text.startswith("```"):
+            raw_text = raw_text[3:]
+            
+        if raw_text.endswith("```"):
+            raw_text = raw_text[:-3]
+            
+        clean_text = raw_text.strip()
+        
+        places_data = json.loads(clean_text)
+        
+        return places_data
+        
+    except json.JSONDecodeError as e:
+        print(f"❌ Brain Agent (JSON Decode Error): {e}")
+        print(f"📄 Raw Text ที่มีปัญหา:\n{raw_text}")
+        return []
+        
+    except Exception as e:
+        print(f"❌ Brain Agent (API Error): {e}")
+        return []
