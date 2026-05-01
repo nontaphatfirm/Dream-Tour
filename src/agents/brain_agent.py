@@ -3,8 +3,8 @@ from google import genai
 from src.config import GEMINI_API_KEYS
 from src.utils.prompts import BRAIN_PROMPT
 
-def generate_recommendations(context):
-    prompt = BRAIN_PROMPT.format(context=context)
+def generate_recommendations(context, vibe_keywords):
+    prompt = BRAIN_PROMPT.format(context=context, vibe=vibe_keywords)
     
     for index, key in enumerate(GEMINI_API_KEYS):
         try:

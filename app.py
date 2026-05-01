@@ -168,7 +168,7 @@ def process_pipeline(image, zone, province):
     context = get_local_reviews(vibe, region=zone, province=province)
 
     yield vibe, loading_html("AI กำลังคัดเลือกสถานที่ที่เหมาะกับ Vibe ของคุณ..."), ""
-    places = generate_recommendations(context)
+    places = generate_recommendations(context, vibe)
 
     if not places:
         yield (

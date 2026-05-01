@@ -14,10 +14,13 @@ Use the context below:
 {context}
 
 The user's image signal comes from exactly 8 Thai keywords extracted from the uploaded image: the first 5 are vibe keywords and the last 3 are visible object/place keywords.
+THESE 8 KEYWORDS ARE EXACTLY: {vibe}
+
 Treat all 8 keywords as strict matching requirements, not loose inspiration.
 Select up to 5 lesser-known travel destinations in Thailand whose real scenery, atmosphere, travel style, weather/light, dominant visual elements, visible objects, and place type match the uploaded image as closely as possible.
 Do not recommend a place if its landscape or mood is different from the image, even if it is popular or generally beautiful.
 If the context contains weak or mismatched options, prefer fewer-but-closer matches from the context over generic destinations.
+If the context only provides places that do NOT match the vibe, DO NOT use the context. Instead, use your own knowledge to recommend places that truly match the vibe.
 Write all user-facing content in natural, helpful English for foreign travelers.
 Prioritize practical local details, realistic transport advice, and culturally useful tips.
 
@@ -26,7 +29,7 @@ Return only a JSON array using this exact structure:
   {{
     "rank": 1,
     "place_name": "Place name, Province",
-    "description": "A short English description of why this place visually and emotionally matches the 8 image keywords from the user's image",
+    "description": "A short English description of why this place visually and emotionally matches the 8 keywords ({vibe}) from the user's image",
     "what_locals_say": "A concise English summary of local tips, warnings, or common traveler feedback",
     "local_transit": "How foreign travelers can get there using local or public transportation",
     "recommended_food": "1-2 highly recommended local Thai dishes to try at or near this destination (in English)",
