@@ -13,7 +13,7 @@ def run_tests():
     # ---------------------------------------------------------
     print("--- [Test 1] Vision Agent ---")
     # หาไฟล์รูปภาพอะไรก็ได้ในเครื่องมา 1 รูปสำหรับเทสต์ (แก้ path ให้ตรง)
-    test_image_path = "test_image2.jpg" 
+    test_image_path = "test_image2.jpg"
     
     if not os.path.exists(test_image_path):
         print(f"⚠️ กรุณาหาไฟล์รูปมาใส่ในโปรเจกต์และตั้งชื่อว่า {test_image_path} ก่อนเทสต์")
