@@ -13,7 +13,7 @@ def run_tests():
     # ---------------------------------------------------------
     print("--- [Test 1] Vision Agent ---")
     # หาไฟล์รูปภาพอะไรก็ได้ในเครื่องมา 1 รูปสำหรับเทสต์ (แก้ path ให้ตรง)
-    test_image_path = "test_image.jpg" 
+    test_image_path = "test_image2.jpg" 
     
     if not os.path.exists(test_image_path):
         print(f"⚠️ กรุณาหาไฟล์รูปมาใส่ในโปรเจกต์และตั้งชื่อว่า {test_image_path} ก่อนเทสต์")
@@ -44,6 +44,10 @@ def run_tests():
     print("--- [Test 3] Brain Agent (JSON Generator) ---")
     try:
         places_data = generate_recommendations(context)
+        if not places_data:
+            print("⚠️ Brain Agent ไม่ได้คืนข้อมูลสถานที่ จึงข้ามการทดสอบหารูปภาพ")
+            return
+
         print("✅ คัดกรอง Top 5 และสร้าง JSON สำเร็จ!")
         print(json.dumps(places_data, indent=2, ensure_ascii=False))
         print("\n")
