@@ -38,7 +38,7 @@ Return only a JSON array using this exact structure:
   {{
     "rank": 1,
     "place_name": "Place name, Province",
-    "description": "A short English description of why this place visually and emotionally matches the 8 keywords ({vibe}) from the user's image",
+    "description": "A short English description of why this place visually and emotionally matches the user's 8 image keywords. Write in 100% natural English. DO NOT include the original Thai keywords in parentheses.",
     "what_locals_say": "A concise English summary of local tips, warnings, or common traveler feedback",
     "local_transit": "How foreign travelers can get there using local or public transportation",
     "recommended_food": "1-2 highly recommended local Thai dishes to try at or near this destination (in English)",
