@@ -117,6 +117,15 @@ Dream-Tour/
 ## Website
 - https://huggingface.co/spaces/Sarankorn/Dream_Tour
 
+---
+## 👥 Team Members (Developers)
+
+| Profile | Name | ID | GitHub |
+| :---: | :--- | :---: | :--- |
+| <img src="https://avatars.githubusercontent.com/khunkhang01" width="50" style="border-radius: 50%;"> | **Khunkhang Butdapheng** | 600409 | [@khunkhang01](https://github.com/khunkhang01) |
+| <img src="https://avatars.githubusercontent.com/Sarankorn2547" width="50" style="border-radius: 50%;"> | **Sarankorn Pongatsawachai** | 605562 | [@Sarankorn2547](https://github.com/Sarankorn2547) |
+| <img src="https://avatars.githubusercontent.com/nontaphatfirm" width="50" style="border-radius: 50%;"> | **Nontapat Auetrongjit** | 610154 | [@nontaphatfirm](https://github.com/nontaphatfirm) |
+
 ## License
 
 [MIT](LICENSE)
