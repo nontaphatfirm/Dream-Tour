@@ -267,16 +267,21 @@ def get_place_image(search_keyword):
             query=query,
             search_depth="basic",
             include_images=True,
-            max_results=3
+            max_results=5
         )
         
         images = response.get("images", [])
         
-        if images and len(images) > 0:
-            return images[0]
+        valid_images = [
+            img for img in images 
+            if isinstance(img, str) and img.startswith("http")
+        ]
+        
+        if valid_images:
+            return valid_images[0] 
         else:
-            return "https://via.placeholder.com/600x400?text=No+Image+Available"
+            return "https://placehold.co/600x190/eeeeee/999999?text=No+Image+Found"
 
     except Exception as e:
         print(f"❌ Search Agent (Image) Error: {e}")
-        return "https://via.placeholder.com/600x400?text=API+Limit+Reached"
+        return "https://placehold.co/600x190/ffcccc/cc0000?text=API+Limit+Reached"

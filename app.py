@@ -80,7 +80,7 @@ def build_card_html(place: dict, img_url: str) -> str:
   <div style="position: relative;">
     <img src="{img_url}"
          style="width:100%; height:190px; object-fit:cover; display:block;"
-         onerror="this.src='https://via.placeholder.com/600x190?text=No+Image'">
+         onerror="this.onerror=null; this.src='https://placehold.co/600x190/eeeeee/999999?text=Image+Not+Available'">
     <div style="
       position: absolute; top: 12px; left: 12px;
       background: #FF6B35; color: white;
@@ -139,7 +139,7 @@ def build_map_html(places: list) -> str:
   <div style="
     font-family:'Sarabun',sans-serif;
     font-size:0.95rem; font-weight:600;
-    color:white; margin-bottom:10px;
+    color:white; margin-bottom:10px; 
   ">📍 Map of the top place</div>
   <iframe
     src="https://maps.google.com/maps?q={query}&output=embed&hl=th"
